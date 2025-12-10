@@ -29,7 +29,7 @@ const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 600;
 const int OCEAN_HEIGHT = 500;
 const int NUM_FISH = 20;
-const int INITIAL_TIME = 10;
+const int INITIAL_TIME = 20;
 const float FISH_SIZE = 20.0f;
 const float COLLISION_RADIUS = 15.0f;
 const float FISH_SPEED = 0.4f;
@@ -68,6 +68,7 @@ int gameTime = INITIAL_TIME;
 bool allYellowFishGone = false;
 bool soundPlayed = false;
 float playerSizeScale = INITIAL_PLAYER_SIZE;  // Player growth scale
+float prevMouseX = WINDOW_WIDTH / 2.0f;  // Previous mouse X position for direction calculation
 
 // Wave Animation
 bool waveUp = true;
@@ -202,6 +203,7 @@ public:
             y = WINDOW_HEIGHT / 2.0f;
             sizeScale = INITIAL_PLAYER_SIZE;
             sizeType = MEDIUM;
+            direction = FISH_SPEED;  // Default direction for player (right)
         } else {
             isRedFish = (rand() % 10 < 3);  // 30% red fish, 70% yellow fish
             // Randomly assign size type: 40% small, 40% medium, 20% large
@@ -217,8 +219,8 @@ public:
             // Position will be assigned later ensuring safe spawn distance from player
             x = 0.0f;
             y = 0.0f;
+            direction = (rand() % 2) * FISH_SPEED - (FISH_SPEED / 2.0f);
         }
-        direction = (rand() % 2) * FISH_SPEED - (FISH_SPEED / 2.0f);
     }
     
     // Get effective size for collision detection
@@ -341,7 +343,7 @@ public:
         glEnd();
     }
     
-    void move(float mouseX = 0.0f, float mouseY = 0.0f) {
+    void move(float mouseX = 0.0f, float mouseY = 0.0f, float prevMouseX = 0.0f) {
         if (!isPlayer) {
             x += direction;
             if (x > WINDOW_WIDTH) {
@@ -353,6 +355,14 @@ public:
                 y = static_cast<float>(rand() % (WINDOW_HEIGHT - 100));
             }
         } else {
+            // Update direction based on mouse movement
+            if (mouseX > prevMouseX) {
+                direction = FISH_SPEED;  // Moving right
+            } else if (mouseX < prevMouseX) {
+                direction = -FISH_SPEED;  // Moving left
+            }
+            // If mouseX == prevMouseX, keep current direction
+            
             x = mouseX;
             y = WINDOW_HEIGHT - mouseY;
         }
@@ -449,6 +459,7 @@ bool canEatFish(const Fish& player, const Fish& other) {
 void initGame() {
     glClearColor(0.07f, 0.01f, 0.75f, 1.0f);
     playerSizeScale = INITIAL_PLAYER_SIZE;  // Reset player size
+    prevMouseX = WINDOW_WIDTH / 2.0f;  // Initialize previous mouse position
     fishArray.clear();
     for (int i = 0; i < NUM_FISH; ++i) {
         Fish f;
@@ -461,7 +472,10 @@ void initGame() {
 
 // Input Handlers
 void mouseMove(int x, int y) {
-    player.move(static_cast<float>(x), static_cast<float>(y));
+    float mouseX = static_cast<float>(x);
+    float mouseY = static_cast<float>(y);
+    player.move(mouseX, mouseY, prevMouseX);
+    prevMouseX = mouseX;  // Update previous mouse position
 }
 
 void keyboard(int key, int x, int y) {
@@ -472,6 +486,7 @@ void keyboard(int key, int x, int y) {
         allYellowFishGone = false;
         soundPlayed = false;
         playerSizeScale = INITIAL_PLAYER_SIZE;  // Reset player size
+        prevMouseX = WINDOW_WIDTH / 2.0f;  // Reset previous mouse position
         fishArray.clear();
         for (int i = 0; i < NUM_FISH; ++i) {
             Fish f;
@@ -616,6 +631,11 @@ void display() {
                 allYellowFishGone = false;
                 break;
             }
+        }
+        // End game immediately if all yellow fish are collected
+        if (allYellowFishGone) {
+            isGameOver = true;
+            soundPlayed = false;
         }
     } else {
         // Game Over Screen
