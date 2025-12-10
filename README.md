@@ -25,10 +25,6 @@
    - Disappears when touched
    - Goal: Collect all yellow fish to win
 
-2. **Red Fish (Enemy):**
-   - Touching = Instant Game Over
-   - Must be avoided at all costs
-
 3. **Win Condition:**
    - Collect all yellow fish before time runs out
 
@@ -168,10 +164,6 @@ This project is created for educational purposes.
    - اجمعه للحصول على نقطة واحدة
    - يختفي عند لمسه
    - الهدف: اجمع كل السمك الأصفر للفوز
-
-2. **السمك الأحمر (عدو):**
-   - اللمس = انتهاء اللعبة فوراً
-   - يجب تجنبه تماماً
 
 3. **شرط الفوز:**
    - اجمع كل السمك الأصفر قبل انتهاء الوقت
