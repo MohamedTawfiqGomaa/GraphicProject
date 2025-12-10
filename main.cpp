@@ -275,14 +275,16 @@ public:
         }
         glEnd();
         
-        // Draw tail fin (fan shape)
+        // Draw tail fin (fan shape) at the back of the fish
+        float tailBaseX = x - dir * bodyLength * 0.5f;                     // back of the body
+        float tailLength = FISH_SIZE * 0.6f * currentScale;               // tail size scales with fish
         glColor3f(r * 0.8f, g * 0.8f, b * 0.8f);
         glBegin(GL_TRIANGLE_FAN);
-        glVertex2f(x + dir * bodyLength * 0.5f, y);
+        glVertex2f(tailBaseX, y);
         for (int i = 0; i <= 8; i++) {
             float angle = (PI / 3.0f) * float(i) / 8.0f - (PI / 6.0f);
-            float px = x + dir * (bodyLength * 0.5f + FISH_SIZE * 0.6f * currentScale * std::cos(angle));
-            float py = y + FISH_SIZE * 0.6f * currentScale * std::sin(angle);
+            float px = tailBaseX - dir * tailLength * std::cos(angle);     // extend tail opposite to head
+            float py = y + tailLength * std::sin(angle);
             glVertex2f(px, py);
         }
         glEnd();
@@ -291,11 +293,11 @@ public:
         glColor3f(0.0f, 0.0f, 0.0f);
         glLineWidth(1.0f);
         glBegin(GL_LINE_LOOP);
-        glVertex2f(x + dir * bodyLength * 0.5f, y);
+        glVertex2f(tailBaseX, y);
         for (int i = 0; i <= 8; i++) {
             float angle = (PI / 3.0f) * float(i) / 8.0f - (PI / 6.0f);
-            float px = x + dir * (bodyLength * 0.5f + FISH_SIZE * 0.6f * currentScale * std::cos(angle));
-            float py = y + FISH_SIZE * 0.6f * currentScale * std::sin(angle);
+            float px = tailBaseX - dir * tailLength * std::cos(angle);
+            float py = y + tailLength * std::sin(angle);
             glVertex2f(px, py);
         }
         glEnd();
