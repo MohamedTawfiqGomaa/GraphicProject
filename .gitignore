@@ -1,0 +1,78 @@
+# Build directories
+bin/
+obj/
+Debug/
+Release/
+build/
+out/
+
+# Compiled files
+*.o
+*.obj
+*.exe
+*.out
+*.app
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Code::Blocks files
+# Keep project file for team, but ignore generated files
+*.depend
+*.layout
+*.tags
+*.cflags
+*.csm
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# CMake (if used later)
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Temporary files
+*.tmp
+*.log
+*.bak
+*.cache
+
+# Visual Studio (if used)
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.sln
+*.user
+
+# Xcode (if used on Mac)
+*.xcodeproj/
+*.xcworkspace/
+
+# Compiled Static libraries
+*.lai
+*.la
+*.lo
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+

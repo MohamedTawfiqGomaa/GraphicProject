@@ -1,0 +1,73 @@
+1. Project Overview
+Fish Evolution Adventure is a 2D interactive educational game built using OpenGL and GLUT. It
+presents a dynamic ocean environment where players control a fish that evolves by consuming
+smaller fish while avoiding larger or hostile species. The game combines mathematical
+animations, real-time physics, collision detection, and object-oriented design.
+2. General Description of the Project
+The project simulates a realistic underwater world with animated waves, diverse fish species,
+and smooth player controls. The player's journey begins as a small fish with the primary
+objective of surviving, growing, and adapting. The game introduces a progression system where
+the player grows in size upon consuming smaller fish, unlocking the ability to eat larger species
+that were previously dangerous.
+What makes this project unique is its balance between entertainment and educational value. It
+provides a fun gameplay experience while teaching essential computer graphics concepts such
+as transformations, collision physics, and rendering pipelines.
+3. Educational Objectives
+This project covers several major areas of computer graphics and game development:
+• Mastering transformation matrices - scaling, rotation, and translation applied to fish
+models.
+• Understanding 2D rendering with OpenGL - drawing complex shapes using polygons and
+parametric curves.
+• Implementing physics & collision detection - using circular hitboxes and vector distance
+calculations.
+• Constructing a real-time game loop - timers, frame updates, and event-driven input.
+• Building object-oriented systems - reusable classes for fish, behavior patterns, and
+movement.
+The project strengthens the student’s understanding of mathematical concepts applied in
+graphics, such as trigonometric wave functions, distance formulas, and spatial transformations.
+4. System Features
+• Dynamic animated ocean using sine wave simulation.
+• Multiple fish types: small, medium, large, and hostile red fish.
+• Growth system that scales the player model based on consumed fish.
+2• Collision-based interactions with realistic consequences.
+• Smooth mouse-based movement and responsive controls.
+• Sound effects for scoring, danger, and game-over states.
+• Win conditions and loss conditions handled through clear UI screens.
+5. Technologies & Libraries Used
+• C++ programming language
+• OpenGL (Graphics Rendering)
+• GLUT (Window, input, and event handling)
+• Windows API – Beep sound system
+• Standard Libraries: <cmath>, <vector>, <ctime>, <cstdlib>, <cstring>
+6. Architecture & File Structure
+The project is organized into clear folders ensuring readability and scalability:
+• main.cpp → Main game logic, rendering system, physics, and object handling.
+• assets/ → Sound files, textures (if added later).
+• docs/ → All documentation files including this one.
+• build/ → Compiled game executable.
+• shaders/ → (Optional) shader programs for advanced rendering.
+• README.md → Quick overview of how to run and compile the game.
+7. Detailed System Explanation
+This section breaks down the internal components of the game:
+7.1 Ocean Rendering
+The ocean is drawn using gradient-filled backgrounds and animated sine-wave polygons. Each
+frame updates the vertical wave offset to simulate natural water motion.
+37.2 Fish Rendering System
+Fish are rendered using polygon-based shapes approximating ellipses and fins created with
+triangle fans. Each fish type has a color code and size multiplier. The rendering process applies
+translation and directional transformations depending on movement direction.
+7.3 Movement & Behavior
+Non-player fish follow linear horizontal movement with randomized speed and respawn
+positions. The player fish moves with mouse coordinates, inverted vertically to match OpenGL's
+coordinate system.
+7.4 Collision Detection
+Collisions use distance formulas: if the squared distance between two fish centers is less than
+the square of their combined collision radii, an interaction occurs. Based on the fish type, the
+player either gains points, grows in size, or loses the game.
+7.5 Sound and UI System
+Sound cues are triggered using Windows API beeps. The user interface includes score, timer,
+win/loss screens, and restart instructions displayed via bitmap fonts.
+8. Conclusion
+Fish Evolution Adventure is a complete, educational, and enjoyable graphics project that
+demonstrates the ability to combine mathematics, rendering, physics, and game design into one
+cohesive system. The project highlights strong fundamentals and modular programming skills.
