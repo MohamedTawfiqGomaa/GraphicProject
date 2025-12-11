@@ -381,14 +381,14 @@ public:
         float stepX = direction;
         float stepY = 0.0f;
 
-        // Flee if player is bigger and close
-        if (!isRedFish && playerRadius > myRadius * 0.9f && dist2 < FLEE_DISTANCE * FLEE_DISTANCE) {
+        // Flee if player is bigger and close (applies to ALL fish - yellow and red)
+        if (playerRadius > myRadius * 0.9f && dist2 < FLEE_DISTANCE * FLEE_DISTANCE) {
             float norm = std::sqrt(dist2) + 0.001f;
             stepX = -(dx / norm) * FISH_SPEED * FLEE_SPEED_MULT * 2.0f;
             stepY = -(dy / norm) * FISH_SPEED * FLEE_SPEED_MULT * 2.0f;
             direction = (stepX < 0) ? -FISH_SPEED : FISH_SPEED;
         }
-        // Chase if this fish is bigger (red or large) and player is smaller
+        // Chase only if this fish is bigger (red or large) and player is smaller
         else if ((isRedFish || sizeType == LARGE) && playerRadius < myRadius * 0.95f && dist2 < CHASE_DISTANCE * CHASE_DISTANCE) {
             float norm = std::sqrt(dist2) + 0.001f;
             stepX = (dx / norm) * FISH_SPEED * CHASE_SPEED_MULT * 2.0f;
@@ -624,16 +624,17 @@ void display() {
             }
         }
         
-        // Check win condition
-        allYellowFishGone = true;
+        // Check win condition - all fish (yellow and red) must be collected
+        bool allFishGone = true;
         for (const auto& fish : fishArray) {
-            if (!fish.isPlayer && !fish.isRedFish) {
-                allYellowFishGone = false;
+            if (!fish.isPlayer) {  // Check if any non-player fish exists
+                allFishGone = false;
                 break;
             }
         }
-        // End game immediately if all yellow fish are collected
-        if (allYellowFishGone) {
+        // End game immediately if all fish are collected
+        if (allFishGone) {
+            allYellowFishGone = true;  // Set to true for win condition
             isGameOver = true;
             soundPlayed = false;
         }
