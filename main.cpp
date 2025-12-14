@@ -19,11 +19,11 @@
 const int WINDOW_WIDTH = 1200; // عرض النافذة
 const int WINDOW_HEIGHT = 600; // ارتفاع النافذة
 const int OCEAN_HEIGHT = 500; // ارتفاع المحيط
-const int NUM_FISH = 20; // عدد الاسماك
+const int NUM_FISH = 50; // عدد الاسماك
 const int INITIAL_TIME = 50; // الوقت الابتدائي
 const float FISH_SIZE = 20.0f; // حجم الاسماك
 const float COLLISION_RADIUS = 15.0f; // نصف قطر التصادم
-const float FISH_SPEED = 0.5f;
+const float FISH_SPEED = 0.5f;//سرعة الاسمك
 const float PI = 3.1415926f; // قيمة باي
 
 // نمو اللاعب
@@ -34,11 +34,11 @@ const float MAX_PLAYER_SIZE = 2.5f; // حجم اللاعب الاقصى
 // سلوك الأسماك
 const float FLEE_DISTANCE = 200.0f; // المسافة الاقصى للهروب
 const float CHASE_DISTANCE = 250.0f; // المسافة الاقصى للمطاردة
-const float FLEE_SPEED = 1.5f; // سرعة الهروب
-const float CHASE_SPEED = 1.3f; // سرعة المطاردة
+const float FLEE_SPEED = 4.5f; // سرعة الهروب
+const float CHASE_SPEED = 2.3f; // سرعة المطاردة
 
 // الأمواج
-const int WAVE_POINTS = 50; // عدد النقاط للموجة
+const int WAVE_POINTS = 80; // عدد النقاط للموجة
 float waveOffset = 0.0f; // التحرك الأفقي للموجة
 
 // ============================================
@@ -530,22 +530,22 @@ void display() {
 // الدالة الرئيسية
 // ============================================
 int main(int argc, char *argv[]) {
-    srand(static_cast<unsigned int>(time(nullptr)));//التحرك بالمؤقت
-
-    glutInit(&argc, argv);//التحرك بالمؤقت
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);//التحرك بالمؤقت
-    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);//التحرك بالمؤقت
-    glutInitWindowPosition(250, 200);//التحرك بالمؤقت
-    glutCreateWindow("Fish Game - Clean Version");//التحرك بالمؤقت
-
-    initGame();//التهيئة اللعبة
-
-    glutPassiveMotionFunc(mouseMove);//التحرك بالماوس
-    glutSpecialFunc(keyboard);//التحرك باللوحة
-    glutTimerFunc(0, animationTimer, 0);//التحرك بالمؤقت
-    glutTimerFunc(0, gameTimer, 0);//التحرك بالمؤقت
-    glutDisplayFunc(display);//التحرك بالمؤقت
-
-    glutMainLoop();//التحرك بالمؤقت
+    srand(time(nullptr));  // ابدأ مولد الأرقام العشوائية
+    
+    glutInit(&argc, argv);  // ابدأ GLUT
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);  // نظام الألوان + رسم مزدوج
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);  // حجم النافذة
+    glutCreateWindow("Fish Game");  // أنشئ النافذة
+    
+    initGame();  // هيئ اللعبة
+    
+    // اربط الدوال بالأحداث
+    glutPassiveMotionFunc(mouseMove);  // حركة الماوس
+    glutSpecialFunc(keyboard);  // لوحة المفاتيح
+    glutTimerFunc(0, animationTimer, 0);  // مؤقت الرسوم
+    glutTimerFunc(0, gameTimer, 0);  // مؤقت اللعبة
+    glutDisplayFunc(display);  // دالة العرض
+    
+    glutMainLoop();  // ابدأ الحلقة الرئيسية (لا تتوقف حتى يغلق المستخدم النافذة)
     return 0;
 }
