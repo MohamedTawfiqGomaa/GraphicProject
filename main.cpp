@@ -109,8 +109,8 @@ void drawOcean() {
     glVertex2f(windowWidth, 0);
     glColor3f(0.05f, 0.2f, 0.5f);
 
-    // glVertex2f(windowWidth, oceanHeight);
-    // glVertex2f(0, oceanHeight);
+    glVertex2f(windowWidth, oceanHeight);
+    glVertex2f(0, oceanHeight);
 
     glEnd();
 
